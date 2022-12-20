@@ -1,0 +1,79 @@
+version: "3"
+
+services:
+  productdb:
+    image: mariadb:10.10.2
+    container_name: productDB
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_HOST: localhost
+      MYSQL_TCP_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root!
+      MYSQL_DATABASE: product
+      MYSQL_USER: barbel
+      MYSQL_PASSWORD: barbel!
+      TZ: Asia/Seoul
+    networks:
+      - barbel-network
+    restart: always
+    volumes:
+      - ./db/product/sql:/docker-entrypoint-initdb.d
+
+  memberdb:
+    image: mariadb:10.10.2
+    container_name: memberDB
+    ports:
+      - "3308:3308"
+    volumes:
+      - ./db/member/sql:/docker-entrypoint-initdb.d
+    environment:
+      TZ: Asia/Seoul
+      MYSQL_HOST: localhost
+      MYSQL_TCP_PORT: 3308
+      MYSQL_ROOT_PASSWORD: root!
+      MYSQL_DATABASE: member
+      MYSQL_USER: barbel
+      MYSQL_PASSWORD: barbel!
+    networks:
+      - barbel-network
+    restart: always
+
+  product:
+    image: bjk1649/product
+    container_name: product
+    ports:
+      - 4002:4002
+    networks:
+      - barbel-network
+    depends_on:
+      - productdb
+    restart: always
+    tty: true
+
+  member:
+    image: jinjooone/member
+    container_name: member
+    ports:
+      - 4001:4001
+    networks:
+      - barbel-network
+    depends_on:
+      - memberdb
+    restart: always
+    tty: true
+
+  gateway:
+    image: bjk1649/gateway
+    container_name: gateway
+    ports:
+      - 8080:8080
+    networks:
+      - barbel-network
+    depends_on:
+      - memberdb
+    restart: always
+    tty: true
+      
+networks:
+  barbel-network:
