@@ -34,7 +34,7 @@ create table ord
     res_hp     varchar(13) NOT NULL,
     deliv_req  varchar(40) NOT NULL,
     fk_prdnum  INT         NOT NULL,
-    ord_date   date        NOT NULL,
+    ord_date   date        NOT NULL default  current_date,
     p_time     timestamp   not null default current_timestamp,
     FOREIGN KEY (fk_prdnum) REFERENCES product (uid)
 );
@@ -77,4 +77,5 @@ insert into product
 insert into ord
 (fk_num, res_nm, res_addr01, res_addr02, res_addr03, res_tel, res_hp, deliv_req, fk_prdnum, ord_date) values
 (1, "김우중", "15875", "경기 군포시 용호2로 51", "104동 1401호", "031-457-0139", "010-6773-0139", "근손실 날 것 같습니다. 빨리 배송해주세요!", 1, current_date);
+
 
