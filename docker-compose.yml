@@ -34,7 +34,7 @@ services:
       MYSQL_PASSWORD: barbel!
       TZ: Asia/Seoul
     networks:
-      - barbel-network-test
+      - barbel-network
     restart: always
     volumes:
       - ./db/product/sql_write:/docker-entrypoint-initdb.d
@@ -115,7 +115,9 @@ services:
     ports:
       - 4000:4000
     networks:
-      - memberdb
+      - barbel-network
+    depends_on:
+      - gateway
     restart: always  
       
 networks:
