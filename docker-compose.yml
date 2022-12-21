@@ -73,7 +73,7 @@ services:
       resources:
         limits:
           cpus: ".5"
-          memory: 512M
+          memory: 1024M
 
   member:
     image: jinjooone/member
@@ -90,7 +90,7 @@ services:
       resources:
         limits:
           cpus: ".5"
-          memory: 512M
+          memory: 1024M
 
   gateway:
     image: bjk1649/gateway
@@ -107,7 +107,7 @@ services:
       resources:
         limits:
           cpus: ".5"
-          memory: 512M
+          memory: 1024M
     
   healthcheck:
     image: bjk1649/healthcheck
