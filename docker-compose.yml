@@ -75,7 +75,7 @@ services:
     restart: always
     tty: true
     
-    resource:
+  resource:
     image: jinjooone/resource
     container_name: resource
     ports:
