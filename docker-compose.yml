@@ -74,6 +74,20 @@ services:
       - memberdb
     restart: always
     tty: true
+    
+    resource:
+    image: jinjooone/resource
+    container_name: resource
+    ports:
+      - 4003:4003
+    networks:
+      - barbel-network
+    depends_on:
+      - member
+      - product
+      - gateway
+    restart: always
+    tty: true
       
 networks:
   barbel-network:
