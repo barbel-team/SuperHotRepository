@@ -111,7 +111,7 @@ services:
     
   healthcheck:
     image: bjk1649/healthcheck
-    container_name: gateway
+    container_name: healthcheck
     ports:
       - 4000:4000
     networks:
