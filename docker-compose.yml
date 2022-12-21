@@ -19,6 +19,25 @@ services:
     restart: always
     volumes:
       - ./db/product/sql:/docker-entrypoint-initdb.d
+      
+  productdb_write:
+    image: mariadb:10.10.2
+    container_name: productDB_write
+    ports:
+      - "3309:3309"
+    environment:
+      MYSQL_HOST: localhost
+      MYSQL_TCP_PORT: 3309
+      MYSQL_ROOT_PASSWORD: root!
+      MYSQL_DATABASE: product
+      MYSQL_USER: barbel
+      MYSQL_PASSWORD: barbel!
+      TZ: Asia/Seoul
+    networks:
+      - barbel-network-test
+    restart: always
+    volumes:
+      - ./db/product/sql_write:/docker-entrypoint-initdb.d
 
   memberdb:
     image: mariadb:10.10.2
@@ -50,6 +69,11 @@ services:
       - productdb
     restart: always
     tty: true
+    deploy:
+      resources:
+        limits:
+          cpus: ".5"
+          memory: 512M
 
   member:
     image: jinjooone/member
@@ -62,6 +86,11 @@ services:
       - memberdb
     restart: always
     tty: true
+    deploy:
+      resources:
+        limits:
+          cpus: ".5"
+          memory: 512M
 
   gateway:
     image: bjk1649/gateway
@@ -74,7 +103,20 @@ services:
       - memberdb
     restart: always
     tty: true
+    deploy:
+      resources:
+        limits:
+          cpus: ".5"
+          memory: 512M
     
+  healthcheck:
+    image: bjk1649/healthcheck
+    container_name: gateway
+    ports:
+      - 4000:4000
+    networks:
+      - memberdb
+    restart: always  
       
 networks:
   barbel-network:

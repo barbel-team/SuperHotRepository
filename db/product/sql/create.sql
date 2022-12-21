@@ -13,7 +13,7 @@ create table product
     prd_price  varchar(15) NOT NULL,
     prd_cmp    varchar(30) NOT NULL,
     prd_type   varchar(30) NOT NULL,
-    prd_img    varchar(100) NOT NULL,
+    prd_img    varchar(255) NOT NULL,
     prd_ment   varchar(50) NOT NULL,
     prd_stock  INT(15)     NOT NULL default 100,
     prd_sales  INT(15)     NOT NULL default 0,
@@ -25,14 +25,12 @@ create table product
 create table ord
 (
     uid        INT AUTO_INCREMENT PRIMARY KEY,
-    fk_num     BIGINT      NOT NULL,
     res_nm     varchar(20) NOT NULL,
     res_addr01 varchar(30) NOT NULL,
     res_addr02 varchar(30) NOT NULL,
     res_addr03 varchar(30) NOT NULL,
-    res_tel    varchar(12) NOT NULL,
-    res_hp     varchar(13) NOT NULL,
-    deliv_req  varchar(40) NOT NULL,
+    res_tel     varchar(15) NOT NULL,
+    deliv_req  varchar(100) NOT NULL,
     fk_prdnum  INT         NOT NULL,
     ord_date   date        NOT NULL default  current_date,
     p_time     timestamp   not null default current_timestamp,
@@ -75,7 +73,7 @@ insert into product
      "강한 나를 만들어주는 마법의 비약 크레아틴!", "크레아틴 모노 하이드레이트");
 
 insert into ord
-(fk_num, res_nm, res_addr01, res_addr02, res_addr03, res_tel, res_hp, deliv_req, fk_prdnum, ord_date) values
-(1, "김우중", "15875", "경기 군포시 용호2로 51", "104동 1401호", "031-457-0139", "010-6773-0139", "근손실 날 것 같습니다. 빨리 배송해주세요!", 1, current_date);
+(res_nm, res_addr01, res_addr02, res_addr03, res_tel, deliv_req, fk_prdnum) values
+("집", "15875", "경기 군포시 용호2로 51", "104동 1401호", "010-6773-0139", "근손실 날 것 같습니다. 빨리 배송해주세요!", 1);
 
 
