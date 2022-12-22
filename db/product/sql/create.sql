@@ -33,8 +33,7 @@ create table ord
     deliv_req  varchar(100) NOT NULL,
     fk_prdnum  INT         NOT NULL,
     ord_date   date        NOT NULL default  current_date,
-    p_time     timestamp   not null default current_timestamp,
-    FOREIGN KEY (fk_prdnum) REFERENCES product (uid)
+    p_time     timestamp   not null default current_timestamp
 );
 
 

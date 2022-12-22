@@ -19,7 +19,7 @@ services:
     restart: always
     volumes:
       - ./db/product/sql:/docker-entrypoint-initdb.d
-      
+
   productdb_write:
     image: mariadb:10.10.2
     container_name: productDB_write
@@ -72,11 +72,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: ".5"
-          memory: 1024M
+          cpus: "1"
+          memory: 2048M
 
   member:
-    image: jinjooone/member
+    image: bjk1649/member
     container_name: member
     ports:
       - 4001:4001
@@ -89,8 +89,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: ".5"
-          memory: 1024M
+          cpus: "1"
+          memory: 2048M
 
   gateway:
     image: bjk1649/gateway
@@ -106,9 +106,9 @@ services:
     deploy:
       resources:
         limits:
-          cpus: ".5"
-          memory: 1024M
-    
+          cpus: "1"
+          memory: 2048M
+
   healthcheck:
     image: bjk1649/healthcheck
     container_name: healthcheck
@@ -118,7 +118,9 @@ services:
       - barbel-network
     depends_on:
       - gateway
-    restart: always  
-      
+    restart: always
+    volumes:
+      - /usr/local:/tmp
+
 networks:
   barbel-network:
